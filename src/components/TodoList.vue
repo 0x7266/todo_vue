@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import Todo from "./Todo.vue";
 
 const text = ref<string>("");
 
-type Todo = {
+export type Todo = {
 	id: number;
 	text: string;
 };
@@ -32,7 +33,6 @@ function removeTodo(id: number) {
 		<button>ADD</button>
 	</form>
 	<div v-for="todo in todos">
-		{{ todo.text }}
-		<button @click="removeTodo(todo.id)">X</button>
+		<Todo :todo="todo" :removeTodo="removeTodo" />
 	</div>
 </template>
