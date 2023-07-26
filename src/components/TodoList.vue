@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { uid } from "uid";
 import Todo from "./Todo.vue";
 
@@ -14,6 +14,25 @@ export type Todo = {
 };
 
 const todos = ref<Todo[]>([]);
+
+watch(
+	todos,
+	() => {
+		setTodosOnLocalStorage();
+	},
+	{ deep: true }
+);
+
+(() => {
+	const list = localStorage.getItem("todos");
+	if (list) {
+		todos.value = JSON.parse(list);
+	}
+})();
+
+function setTodosOnLocalStorage() {
+	localStorage.setItem("todos", JSON.stringify(todos.value));
+}
 
 const todosCompleted = computed(() => {
 	return todos.value.every((todo) => todo.isCompleted);
