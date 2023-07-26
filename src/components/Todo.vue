@@ -16,12 +16,12 @@ const editPayload = ref(todo.text);
 			@submit="$emit('updateTodo', editPayload)"
 		/>
 		<div class="grow font-semibold">
-			<input
+			<form
 				v-if="todo.isBeingEdited"
-				type="text"
-				v-model="editPayload"
-				class="w-full"
-			/>
+				@submit="$emit('updateTodo', index, editPayload)"
+			>
+				<input type="text" v-model="editPayload" class="w-full" />
+			</form>
 			<span v-else :class="{ 'line-through': todo.isCompleted }">
 				{{ todo.text }}
 			</span>
