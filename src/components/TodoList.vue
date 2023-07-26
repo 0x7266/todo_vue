@@ -8,19 +8,59 @@ export type Todo = {
 	id: number;
 	text: string;
 	isCompleted: boolean;
+	isBeingEdited: boolean;
 };
 
 const todos = ref<Todo[]>([
-	{ id: Math.random() * 100000, text: "todo 1", isCompleted: false },
-	{ id: Math.random() * 100000, text: "todo 2", isCompleted: true },
-	{ id: Math.random() * 100000, text: "todo 3", isCompleted: false },
-	{ id: Math.random() * 100000, text: "todo 4", isCompleted: true },
-	{ id: Math.random() * 100000, text: "todo 5", isCompleted: false },
+	{
+		id: Math.random() * 100000,
+		text: "todo 1",
+		isCompleted: false,
+		isBeingEdited: false,
+	},
+	{
+		id: Math.random() * 100000,
+		text: "todo 2",
+		isCompleted: true,
+		isBeingEdited: false,
+	},
+	{
+		id: Math.random() * 100000,
+		text: "todo 3",
+		isCompleted: false,
+		isBeingEdited: false,
+	},
+	{
+		id: Math.random() * 100000,
+		text: "todo 4",
+		isCompleted: true,
+		isBeingEdited: false,
+	},
+	{
+		id: Math.random() * 100000,
+		text: "todo 5",
+		isCompleted: false,
+		isBeingEdited: false,
+	},
 ]);
 
 function addTodo(e: Event) {
 	e.preventDefault();
-	todos.value.push({ id: Math.random(), text: text.value, isCompleted: false });
+	todos.value.push({
+		id: Math.random(),
+		text: text.value,
+		isCompleted: false,
+		isBeingEdited: false,
+	});
+}
+
+function toggleEditTodo(index: number) {
+	todos.value[index].isBeingEdited = !todos.value[index].isBeingEdited;
+}
+
+function updateTodo(index: number, payload: string) {
+	todos.value[index].text = payload;
+	toggleEditTodo(index);
 }
 
 function removeTodo(id: number) {
@@ -48,6 +88,8 @@ function removeTodo(id: number) {
 					@toggleComplete="
 						(index) => (todos[index].isCompleted = !todos[index].isCompleted)
 					"
+					@toggleEditTodo="toggleEditTodo"
+					@updateTodo="updateTodo"
 					@removeTodo="removeTodo"
 				/>
 			</div>
