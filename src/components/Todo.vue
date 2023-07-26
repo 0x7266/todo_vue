@@ -8,7 +8,7 @@ const editPayload = ref(todo.text);
 
 <template>
 	<div
-		class="flex justify-between items-center gap-5 text-2xl bg-zinc-600 rounded p-4"
+		class="flex justify-between items-center gap-5 text-2xl bg-zinc-300 shadow rounded p-4"
 	>
 		<input
 			class="h-5 w-5"
@@ -28,7 +28,11 @@ const editPayload = ref(todo.text);
 					class="w-full bg-transparent outline-none text-zinc-200"
 				/>
 			</form>
-			<span v-else :class="{ 'line-through opacity-30': todo.isCompleted }">
+			<span
+				v-else
+				class="text-zinc-700"
+				:class="{ 'line-through opacity-30': todo.isCompleted }"
+			>
 				{{ todo.text }}
 			</span>
 		</div>
