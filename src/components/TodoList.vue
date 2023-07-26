@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { uid } from "uid";
 import Todo from "./Todo.vue";
 
 const text = ref<string>("");
 
 export type Todo = {
-	id: number;
+	id: string;
 	text: string;
 	isCompleted: boolean;
 	isBeingEdited: boolean;
@@ -13,31 +14,31 @@ export type Todo = {
 
 const todos = ref<Todo[]>([
 	{
-		id: Math.random() * 100000,
+		id: uid(),
 		text: "todo 1",
 		isCompleted: false,
 		isBeingEdited: false,
 	},
 	{
-		id: Math.random() * 100000,
+		id: uid(),
 		text: "todo 2",
 		isCompleted: true,
 		isBeingEdited: false,
 	},
 	{
-		id: Math.random() * 100000,
+		id: uid(),
 		text: "todo 3",
 		isCompleted: false,
 		isBeingEdited: false,
 	},
 	{
-		id: Math.random() * 100000,
+		id: uid(),
 		text: "todo 4",
 		isCompleted: true,
 		isBeingEdited: false,
 	},
 	{
-		id: Math.random() * 100000,
+		id: uid(),
 		text: "todo 5",
 		isCompleted: false,
 		isBeingEdited: false,
@@ -47,7 +48,7 @@ const todos = ref<Todo[]>([
 function addTodo(e: Event) {
 	e.preventDefault();
 	todos.value.push({
-		id: Math.random(),
+		id: uid(),
 		text: text.value,
 		isCompleted: false,
 		isBeingEdited: false,
@@ -63,7 +64,7 @@ function updateTodo(index: number, payload: string) {
 	toggleEditTodo(index);
 }
 
-function removeTodo(id: number) {
+function removeTodo(id: string) {
 	todos.value = todos.value.filter((todo) => todo.id !== id);
 }
 </script>

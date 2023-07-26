@@ -26,7 +26,7 @@ const editPayload = ref(todo.text);
 				{{ todo.text }}
 			</span>
 		</div>
-		<div class="flex gap-3">
+		<div class="flex gap-2">
 			<div>
 				<button
 					v-if="todo.isBeingEdited"
