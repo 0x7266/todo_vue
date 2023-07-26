@@ -7,7 +7,9 @@ const editPayload = ref(todo.text);
 </script>
 
 <template>
-	<div class="flex justify-between items-center gap-5 text-xl">
+	<div
+		class="flex justify-between items-center gap-5 text-2xl bg-zinc-600 rounded p-4"
+	>
 		<input
 			class="h-5 w-5"
 			type="checkbox"
@@ -20,9 +22,13 @@ const editPayload = ref(todo.text);
 				v-if="todo.isBeingEdited"
 				@submit="$emit('updateTodo', index, editPayload)"
 			>
-				<input type="text" v-model="editPayload" class="w-full" />
+				<input
+					type="text"
+					v-model="editPayload"
+					class="w-full bg-transparent outline-none text-zinc-200"
+				/>
 			</form>
-			<span v-else :class="{ 'line-through': todo.isCompleted }">
+			<span v-else :class="{ 'line-through opacity-30': todo.isCompleted }">
 				{{ todo.text }}
 			</span>
 		</div>
