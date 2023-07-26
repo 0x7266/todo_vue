@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { Todo } from "./TodoList.vue";
 
-type Props = {
-	todo: Todo;
-	removeTodo: (id: number) => void;
-};
-
-let { todo, removeTodo } = defineProps<Props>();
-defineEmits(["completeTodo"]);
+let { todo, index } = defineProps<{ todo: Todo; index: number }>();
+defineEmits(["toggleComplete", "removeTodo"]);
 </script>
 
 <template>
@@ -15,7 +10,7 @@ defineEmits(["completeTodo"]);
 		<input
 			class="h-5 w-5"
 			type="checkbox"
-			@input="$emit('completeTodo', todo.id)"
+			@input="$emit('toggleComplete', index)"
 		/>
 		<span
 			class="grow font-semibold"
@@ -23,6 +18,6 @@ defineEmits(["completeTodo"]);
 		>
 			{{ todo.text }}
 		</span>
-		<button class="" @click="removeTodo(todo.id)">❌</button>
+		<button class="" @click="$emit('removeTodo', todo.id)">❌</button>
 	</div>
 </template>

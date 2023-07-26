@@ -41,11 +41,14 @@ function removeTodo(id: number) {
 			</button>
 		</form>
 		<ul class="flex flex-col gap-2 w-full">
-			<div v-for="todo in todos">
+			<div v-for="(todo, index) in todos">
 				<Todo
 					:todo="todo"
-					:removeTodo="removeTodo"
-					@completeTodo="(id) => todos.find(t => t.id === id)!.isCompleted = !todos.find(t => t.id)?.isCompleted"
+					:index="index"
+					@toggleComplete="
+						(index) => (todos[index].isCompleted = !todos[index].isCompleted)
+					"
+					@removeTodo="removeTodo"
 				/>
 			</div>
 		</ul>
